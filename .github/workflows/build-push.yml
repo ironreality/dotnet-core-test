@@ -1,0 +1,31 @@
+name: Build and Deploy Windows Container App to Azure App Service
+
+# Trigger the build on commits into the master branch
+on:
+  push:
+    branches:
+      - master
+
+# Starts jobs and sets the type of runner (Windows) they will run on
+jobs:
+  build-push:
+    runs-on: windows-2019
+
+    steps:
+
+    # Checks out repository so your workflow can access it
+    - uses: actions/checkout@v1
+
+    # Use docker login to log into registry
+    - name: Docker login
+      uses: azure/docker-login@v1
+      with:
+       # comment out the login-server parameter if using docker hub
+        username: ${{ secrets.IMAGE_REGISTRY_USERNAME }}
+        password: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+
+    # Build and push your image to Azure Container Registry 
+    - name: Build and Push image to registry
+      run: |
+        docker build --file=Dockerfile -t ${{ secrets.IMAGE_REGISTRY_NAME }}/dotnet-core-test:${{ github.sha }} .
+        docker push ${{ secrets.IMAGE_REGISTRY_NAME }}/dotnet-core-test:${{ github.sha }}  
