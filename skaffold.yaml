@@ -1,0 +1,20 @@
+apiVersion: skaffold/v2beta9
+kind: Config
+metadata:
+  name: dotnet-core-test
+build:
+  artifacts:
+  - image: ironreality/dotnet-core-test
+    context: .
+
+deploy:
+  kubectl:
+    manifests:
+      - config/dotnet-core-test.yaml
+
+portForward:
+- resourceType: Service
+  resourceName: dotnetcoretest-service
+  namespace: default
+  port: 3000
+  localPort: 3000
