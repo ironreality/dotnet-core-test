@@ -10,7 +10,7 @@ build:
 deploy:
   kubectl:
     manifests:
-      - config/dotnet-core-test.yaml
+      - config/*.yaml
 
 portForward:
 - resourceType: Service
