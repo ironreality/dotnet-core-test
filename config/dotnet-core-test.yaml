@@ -24,8 +24,12 @@ spec:
         value: windows
         effect: NoSchedule
       containers:
-        - image: ironreality/dotnet-core-test:latest
-          name: dotnetcoretest
+        - name: dotnetcoretest
+          image: ironreality/dotnet-core-test:latest
+          livenessProbe:
+              httpGet:
+                path: /healthz
+                port: 80
 ---
 apiVersion: v1
 kind: Service

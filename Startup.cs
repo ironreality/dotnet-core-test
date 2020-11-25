@@ -25,6 +25,7 @@ namespace dotnet_core_test
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks();
             services.AddControllers();
         }
 
@@ -45,6 +46,7 @@ namespace dotnet_core_test
         // Use the Prometheus middleware
         app.UseMetricServer();
         app.UseHttpMetrics();
+        app.UseHealthChecks("/healthz");
 
             if (env.IsDevelopment())
             {
