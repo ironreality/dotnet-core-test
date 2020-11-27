@@ -11,10 +11,3 @@ deploy:
   kubectl:
     manifests:
       - config/*.yaml
-
-portForward:
-- resourceType: Service
-  resourceName: dotnetcoretest-service
-  namespace: default
-  port: 3000
-  localPort: 3000

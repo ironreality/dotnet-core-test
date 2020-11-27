@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   labels:
-    release: prom-stack
+    release: prometheus
     app: dotnetcoretest
   name: dotnetcoretest
   namespace: default
