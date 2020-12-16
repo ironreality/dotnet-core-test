@@ -32,7 +32,7 @@ namespace dotnet_core_test
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var counter = Metrics.CreateCounter("api_path_counter", "Counts requests to the API endpoints", new CounterConfiguration
+            var counter = Metrics.CreateCounter("meteoservice_api_paths_requests_total", "Counts requests to the API endpoints", new CounterConfiguration
             {
                 LabelNames = new[] { "method", "endpoint"}
             });
@@ -44,8 +44,8 @@ namespace dotnet_core_test
         });
 
         // Use the Prometheus middleware
-        app.UseMetricServer();
-        app.UseHttpMetrics();
+        // need to use /prometheus in order to collaborate with Keptn CD tool
+        app.UseMetricServer("/prometheus");
         app.UseHealthChecks("/healthz");
 
             if (env.IsDevelopment())
@@ -54,6 +54,7 @@ namespace dotnet_core_test
             }
 
             app.UseRouting();
+            app.UseHttpMetrics();
 
             app.UseAuthorization();
 

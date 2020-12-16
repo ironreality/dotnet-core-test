@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnetcoretest
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: dotnetcoretest
+spec:
+  type: ClusterIP
+  selector:
+    app: dotnetcoretest
+  ports:
+    - name: web
+      protocol: TCP
+      port: 80
+      targetPort: 80

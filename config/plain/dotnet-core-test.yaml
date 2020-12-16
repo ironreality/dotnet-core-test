@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnetcoretest
+  namespace: default
+  labels:
+    app: dotnetcoretest
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dotnetcoretest
+  template:
+    metadata:
+      labels:
+        app: dotnetcoretest
+    spec:
+      #nodeSelector:
+      #  kubernetes.io/os: windows
+      #  kubernetes.io/arch: amd64
+      tolerations:
+      - key: os-type
+        operator: Equal
+        value: windows
+        effect: NoSchedule
+      containers:
+        - name: dotnetcoretest
+          image: ironreality/dotnet-core-test:latest
+          livenessProbe:
+              httpGet:
+                path: /healthz
+                port: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnetcoretest
+  labels:
+    app: dotnetcoretest
+spec:
+  type: ClusterIP
+  selector:
+    app: dotnetcoretest
+  ports:
+    - name: web
+      protocol: TCP
+      port: 3000
+      targetPort: 80

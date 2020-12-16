@@ -6,8 +6,11 @@ build:
   artifacts:
   - image: ironreality/dotnet-core-test
     context: .
-
 deploy:
-  kubectl:
-    manifests:
-      - config/*.yaml
+  helm:
+    releases:
+    - name: dotnetcoretest
+      chartPath: config/charts/dotnetcoretest
+      namespace: default
+      artifactOverrides:
+        image: ironreality/dotnet-core-test
