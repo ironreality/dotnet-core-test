@@ -23,3 +23,6 @@ keptn add-resource --project="${proj_name}" --stage=staging --service="${proj_na
 
 # prometheus
 keptn configure monitoring prometheus --project="${proj_name}" --service="${proj_name}"
+
+keptn add-resource --project="${proj_name}" --stage=staging --service="${proj_name}" --resource=sli-config-prometheus-bg.yaml --resourceUri=prometheus/sli.yaml
+keptn add-resource --project="${proj_name}" --stage=staging --service="${proj_name}" --resource=slo-quality-gates.yaml --resourceUri=slo.yaml
