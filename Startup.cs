@@ -50,6 +50,7 @@ namespace dotnet_core_test
             // need to use /prometheus in order to collaborate with Keptn CD tool
             app.UseMetricServer("/prometheus");
             app.UseHealthChecks("/healthz");
+            app.UseHealthChecks("/health");
 
             if (env.IsDevelopment())
             {
