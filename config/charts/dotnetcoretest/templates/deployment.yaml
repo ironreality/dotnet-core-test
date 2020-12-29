@@ -23,6 +23,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: {{ .Values.image }}
+          imagePullPolicy: Always
           livenessProbe:
               httpGet:
                 path: /healthz
