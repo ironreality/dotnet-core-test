@@ -1,0 +1,14 @@
+---
+spec_version: "1.0"
+comparison:
+  compare_with: "single_result"
+filter:
+objectives:
+  - sli: "error_rate"
+    key_sli: false
+    pass:
+      - criteria:
+          - "<0"
+    weight: 1
+total_score:
+  pass: "90%"
